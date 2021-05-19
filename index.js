@@ -58,9 +58,7 @@ function run() {
         Body: fileStream,
         Key: bucketPath,
         ContentType: lookup(p.path) || 'text/plain',
-        Metadata:{
-          CacheControl: maxAge
-        }
+        CacheControl: maxAge
       };
       return upload(params);
     })
