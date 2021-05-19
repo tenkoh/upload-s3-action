@@ -21,6 +21,9 @@ const SOURCE_DIR = core.getInput('source_dir', {
 const DESTINATION_DIR = core.getInput('destination_dir', {
   required: false
 });
+const CACHE_MAX_AGE = core.getInput('cache_max_age', {
+  required: false
+})
 
 const s3 = new S3({
   accessKeyId: AWS_KEY_ID,
@@ -53,7 +56,8 @@ function run() {
         ACL: 'public-read',
         Body: fileStream,
         Key: bucketPath,
-        ContentType: lookup(p.path) || 'text/plain'
+        ContentType: lookup(p.path) || 'text/plain',
+        CacheControl: `max-age=${CACHE_MAX_AGE}`
       };
       return upload(params);
     })

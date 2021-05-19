@@ -21,6 +21,10 @@ inputs:
     required: false
     default: /
     description: 'destination directory for upload'
+  cache_max_age:
+    required: false
+    default: 0
+    description: 'add cache control to uploaded files'
 outputs:
   object_key:
     description: 'object key'
