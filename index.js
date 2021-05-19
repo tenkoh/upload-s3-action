@@ -30,6 +30,7 @@ const s3 = new S3({
   secretAccessKey: SECRET_ACCESS_KEY
 });
 const destinationDir = DESTINATION_DIR === '/' ? shortid() : DESTINATION_DIR;
+const maxAge = 'max-age='+CACHE_MAX_AGE
 const paths = klawSync(SOURCE_DIR, {
   nodir: true
 });
@@ -57,7 +58,7 @@ function run() {
         Body: fileStream,
         Key: bucketPath,
         ContentType: lookup(p.path) || 'text/plain',
-        CacheControl: `max-age=${CACHE_MAX_AGE}`
+        CacheControl: maxAge
       };
       return upload(params);
     })
